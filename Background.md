@@ -93,9 +93,57 @@ This are primary means of moving data to another program.
 - double word = 4 bytes (32bit)
 - quadword = 8 bytes (64bit )
 
-### CPU Workflow Basics:
- - fetch
- - decode
- - execute
+### CPU Workflow and Components:
+ - fetch : fetch data from disc, registry, primary memory (ram)
+ - decode : decode the binary commands/instructions (moving/jumping/calling, etc)
+ - execute : execute the decoded instructions
  - store result 
  - fetch again and repeat and repeat continuously
+
+* Registers: are CPU components. These are little chunks of memory that are available while cpu is executing instructions to store result. Also it figures out what instructions to execute next.
+* Flags : these are also cpu registers. Those throw execution event by either success (1) or failure (0) so we can know what happened (carry, overflow) upon the execution.
+
+### CPU Families x86:
+* 8086 : 16bit registers, AX, BX, CX, DX, SI, DI, BP, SP, CS, DS, SS, ES, IP
+* 80386 (x386): extends to 32bit mode. Extends the registers: EAX, EBX, ...
+* 80486 : faster
+* MMX : new instruction for multimedia
+
+### Registers:
+It's a very high-speed piece of memory inside CPU's. Measures in clock speed
+- 2.6 GHz Clock Speed = 2.6 billion ops (operations) per second
+
+### IP/EIP Register:
+- IP/EIP = Instruction Pointer or "Extended Instruction Pointer" for the stack.
+- Those control instruction execution.
+- points to the current instruction to be executed
+- Cannot be modified directly
+- Increments after instruction is executed or throw Exception or Jump/Break/Continue, etc.
+- Used to mean control of the program for security/exploitation in Assembly 
+
+* Works like conditionals and or looping (if/else/while/do-while/switch, etc)
+
+### Flags Registers:
+Those store info about a previous instruction that was executed. like
+- Carry Flag (CF): after doing binary calculation if it carry anything (1) for the next calculation. like 1 + 1 in binary carry 1 and end up resulting 0001 + 0001 = 0010 
+- Overflow (OF) : if the previous calculation result overflow the allocated memory
+- Sign Flag (SF) : previous Signed (negative/positive) info
+- Zero Flag (ZF) : if the subtraction calculation resulted to 0
+
+### Segment Registers:
+Segments are used to store info about Where elements are located.
+- CS : Code (program/instructions) segment, read only, as code doesn't meant to be changed on it's own.
+- DS : Data (variables) segment, read/write, as variable changes through-out the application execution.
+- SS : Stack segment
+- ES, FS, GS : Extra segments
+### Virtual Memory:
+It's the process of mapping memory addresses used by a program (virtual addresses) to physical address in computer memory.
+ - Appears to process as a contiguous block of memory 
+* OS manages mapping of virtual to real address space
+* Benefits:
+ - Memory isolation (security)
+ - Use more memory than physically able (paging)
+ - Applications do not have ot manage shared memory space
+ - Can help prevent relative addressing
+
+* Page Table : When processor access memory, it consults a page table. Page table tells processor which physical address to use. 

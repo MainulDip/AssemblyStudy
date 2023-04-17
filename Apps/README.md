@@ -1,2 +1,2 @@
 ### Overview :
-All the apps and other projects regarding Assembly Study.
+All the apps and other projects regarding Assembly Language Study and reverse engineering.
