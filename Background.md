@@ -21,10 +21,13 @@ To add 6 and 2 by writing 0100 0110 0010 is okey, but for complex operations it'
 
 ### Terms:
 * OPCODE : Operation Code is used to tell processor do something keeping the program counter, load next instruction (opcode and previously calculated data) and repeat until finished.
+
 * Binary Prefix
  - ADD, SUB, MUL, MOVE
+
 * Truth Tables: All combinations of possible input to all combination of possible output
 
+* BUS: Binary Unit System, is a communication system that transfers data between components inside a computer or between computers
 
 ### Binary Conversion:
 * Each bit is 2^n (2 to the power n) starting from n = 0. So the lowest value in 8bit (1byte) binary is 2^0 = 1 and highest value is 2^7 = 128 . So the maximum total unsigned (positive number) value could be represented by an 8 bit number is 128 + 64 + 32 + 16 + 8 + 4 + 2 + 1 = 255.
@@ -60,6 +63,7 @@ NB: 1 will carry the 2^n value and 0 will skip, then all the carried values are 
 
 ### 2's Complement:
 * Way to store negative Signed number in binary inside Computer Memory. Signed means either positive (0) or negative (1). For 8bit signed binary, the left most bit is allocated for signing info (positive or negative || 0 or 1), so we get 7 bit to represent the actual value.
+
 * If Uppermost (left most) bit (MBS) = 0, then it's positive.
 * If Uppermost (left most) bit = 1, then negative. For Negative binary to decimal conversion, the algorithm is
  - reverse bits
@@ -109,11 +113,57 @@ This are primary means of moving data to another program.
 * 80486 : faster
 * MMX : new instruction for multimedia
 
-### Registers:
-It's a very high-speed piece of memory inside CPU's. Measures in clock speed
-- 2.6 GHz Clock Speed = 2.6 billion ops (operations) per second
+### CPU Registers:
+the processor includes some internal memory storage locations, called registers.
+It's a very high-speed piece of memory inside CPU's, way faster than RAM. Measures in clock speed
+- 2.6 GHz Clock Speed = 2.6 billion ops (operations) per second.
 
-### IP/EIP Register:
+* registers are grouped into three categories
+ 1. #### General Registers:
+  sub-division of this are : 
+    ###### Data Registers: 
+    EAX,  EBX, ECX, EDX. Lower halves of the 32-bit registers can be used as four 16-bit data registers: AX, BX, CX and DX. Also Lower and higher halves of the above-mentioned four 16-bit registers (AX, BX, CX, DX) can be used as eight 8-bit data registers: AH, AL, BH, BL, CH, CL, DH, and DL.
+
+        - Primary Accumulator (EAX) : used in input/output and most arithmetic instructions. It is 32bit, where lower half is AX(16bit), AX can be broken down by AH(8bit) and AL(8bit). A high and A low.
+        - Base register (EBX): could be used in indexed addressing. its lower half BX (16bit) = BH + BL 
+        - Count register (ECX): store the loop count in iterative operations. its lower half CX (16bit) = CH + CL 
+        - Data register (EDX): used in input/output operations. It is also used with AX register along with DX for multiply and divide operations involving large values. its lower half DX (16bit) = DH + DL 
+    
+    ###### Pointer Registers: 3 types:
+      - IP : instruction Pointer, stores the offset address of the next instruction to be executed. IP in association with the CS register (as CS:IP) gives the complete address of the current instruction in the code segment.
+      - SP : Stack Pointer, provides the offset value within the program stack. SP in association with the SS register (SS:SP) refers to be current position of data or address within the program stack.
+      - BP : Base Pointer, helps in referencing the parameter variables passed to a subroutine. The address in SS register is combined with the offset in BP to get the location of the parameter. BP can also be combined with DI and SI as base register for special addressing.
+
+    ###### Index Registers: 
+    are used for indexed addressing and sometimes used in addition and subtraction. There are two sets of index pointers
+      - ESI: (Extended) Source Index, used as source index for string operations
+      - EDI: (Extended) Destination Index, used as destination index for string operation.
+
+ 2. #### Control Registers / Flags Registers:
+  The 32-bit instruction pointer register and the 32-bit flags register combined are considered as the control registers.
+
+    Many instructions involve comparisons and mathematical calculations and change the status of the flags and some other conditional instructions test the value of these status flags to take the control flow to other location. Some Flag bits are
+
+    - Carry Flag (CF): after doing binary calculation if it carry anything (1) for the next calculation. like 1 + 1 in binary carry 1 and end up resulting 0001 + 0001 = 0010 
+    - Overflow (OF) : if the previous calculation result overflow the allocated memory
+    - Sign Flag (SF) : previous Signed (negative/positive) info
+    - Zero Flag (ZF) : if the subtraction calculation resulted to 0
+ 
+ 3. #### Segment Registers:
+Segment registers are basically memory pointers located inside the CPU. These are specific areas defined in a program for containing data, code and stack. They store starting address of the code/data/stack/extra Segment.
+
+    - CS : Code (program/instructions) segment, read only. It contains all the instructions to be executed.
+    - DS : Data segment, read/write, It contains data, constants and work areas.
+    - SS : Stack segment : It contains data and return addresses of procedures or subroutines. It is implemented as a 'stack' data structure.
+    - ES, FS, GS : Extra segments
+
+### IP/EIP Register More:
+IP is Instruction Pointer. Its function is the same as PC (program counter) in other microprocessor which is to point to the next instruction to be fetched by BIU (Bus Interface Unit) unit to be feed into EU (execution unit) unit. 
+
+* BUS: Binary Unit System, is a communication system that transfers data between components inside a computer or between computers
+
+Characters: 
+
 - IP/EIP = Instruction Pointer or "Extended Instruction Pointer" for the stack.
 - Those control instruction execution.
 - points to the current instruction to be executed
@@ -123,19 +173,6 @@ It's a very high-speed piece of memory inside CPU's. Measures in clock speed
 
 * Works like conditionals and or looping (if/else/while/do-while/switch, etc)
 
-### Flags Registers:
-Those store info about a previous instruction that was executed. like
-- Carry Flag (CF): after doing binary calculation if it carry anything (1) for the next calculation. like 1 + 1 in binary carry 1 and end up resulting 0001 + 0001 = 0010 
-- Overflow (OF) : if the previous calculation result overflow the allocated memory
-- Sign Flag (SF) : previous Signed (negative/positive) info
-- Zero Flag (ZF) : if the subtraction calculation resulted to 0
-
-### Segment Registers:
-Segments are used to store info about Where elements are located.
-- CS : Code (program/instructions) segment, read only, as code doesn't meant to be changed on it's own.
-- DS : Data (variables) segment, read/write, as variable changes through-out the application execution.
-- SS : Stack segment
-- ES, FS, GS : Extra segments
 ### Virtual Memory:
 It's the process of mapping memory addresses used by a program (virtual addresses) to physical address in computer memory.
  - Appears to process as a contiguous block of memory 
@@ -147,3 +184,39 @@ It's the process of mapping memory addresses used by a program (virtual addresse
  - Can help prevent relative addressing
 
 * Page Table : When processor access memory, it consults a page table. Page table tells processor which physical address to use. 
+
+
+
+
+### Logical Operators:
+* Bitwise AND (&): Both operand have to be 1 to produce 1. 0 AND 0 = 0 , 1 AND 1 = 1, 1 & 0 = 0
+    0101 & 0011 = 0001 // 5 AND 3 = 1
+    0101 & 0100 = 0100 // 5 AND 4 = 4
+    0011 & 0100 = 0 // 3 AND 4 = 0
+* Bitwise OR: If at lest single operand is 1, it will generate 1 
+
+* Bitwise NOT: Opposite of the given bit. 0 becomes 1 and vise versa
+* Bitwise XOR: If both operand are no mach then the result will be 1, like, 1 XOR 0 = 1, 1 XOR 1 = 0. Used in Encryption, Reverse Engineering, or testing if both operand are same in which case it will return all 0s.
+
+### Programs:
+* Bytes stored on a disk.
+ - OS searches the path
+ - if program exists
+   - load into ram, allocate virtual memory which are mapped with the ram
+   - create process with PID (process ID)
+   - execute process
+   - OS handles resources : Disk IO, input, output, task switching
+
+
+
+### RISC (ARM) vs CICS (x86):
+* Reduced Instruction Set
+ - smaller op (operation) codes
+ - more instructions
+ - use less power
+* Complex Instruction Set
+ - larger op codes
+ - fewer instructions but complex
+ - power hungry
+ - 
+
