@@ -14,10 +14,11 @@ Study of the building block of Computer's Computation.
 To add 6 and 2 by writing 0100 0110 0010 is okey, but for complex operations it's not viable. Here comes the Assembly, this the second lowest level after binary. It has mnemonics that map to machine code (binary) to perform operation. These are written for a specific architecture, like i385, ARM, Sparc, PS3, etc.
 
 ### Different Assemblers:
-- MASM : Microsoft Macro Assembler
+- MASM32 and MASM64 : Microsoft Assembler for 32 and 64 bit. Comes with Visual Studio, but can be use standalone using 3rd party MASM32 SDK.
 - TASM : Turbo Assembler
 - NASM : Netwide Assembler
 - GNU Assembler
+- GoASM : Go Based 64 bit
 
 ### Terms:
 * OPCODE : Operation Code is used to tell processor do something keeping the program counter, load next instruction (opcode and previously calculated data) and repeat until finished.
@@ -244,3 +245,14 @@ ex: add eax, ebx || add eax, 7
     - 1 higher level line may generate many machine/assembly instruction
     - more portable
     - int x = x + 7; // will generate several lines of ASM
+
+### CPU Instruction categories:
+* Load and store
+* Computational
+* Logical
+* Control flow
+
+### Advanced Instruction Group:
+* Advanced Encryption Standard (AES)
+* 128-bit packed decimal instructions
+* 256-bit or more vector instructions
