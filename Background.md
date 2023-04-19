@@ -220,3 +220,27 @@ It's the process of mapping memory addresses used by a program (virtual addresse
  - power hungry
  - 
 
+### Assembly Mnemonics:
+Mnemonics are the names for the symbols used in assembly language. A phrase, symbol, or word used to define or identify a computing function is known as a mnemonic. Assembly language enables programmers to write code that corresponds to the machine instructions that a given processor may execute. Those are mapped to the binary. Mnemonics are followed by operands.
+
+* Mnemonics allow us to call/execute opcode/instruction by symbol/letters instead of raw binary. Higher level than binary. Those can remain the same for different machine.
+
+
+* Example: add eax, ebx // here add is the Mnemonic and eax, ebx are operands.
+
+### Assembly Operands:
+Each assembly language statement is split into an opcode/mnemonic and an operand . The opcode is the instruction that is executed by the CPU and the operand is the data or memory location used to execute that instruction.
+
+* typically Operands modify a register or a memory location. Its data/value is hard coded and increment affects the register.
+
+ex: add eax, ebx || add eax, 7
+
+
+### Assembler vs Compiler:
+* Assembler:
+    - approximatey 1-to-1 assembly to machine code
+    - machine dependent : x86, ARM, SPARC, x86-x64 will vary
+* Compiler:
+    - 1 higher level line may generate many machine/assembly instruction
+    - more portable
+    - int x = x + 7; // will generate several lines of ASM
