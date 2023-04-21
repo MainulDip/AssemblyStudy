@@ -16,7 +16,7 @@ To add 6 and 2 by writing 0100 0110 0010 is okey, but for complex operations it'
 ### Different Assemblers:
 - MASM32 and MASM64 : Microsoft Assembler for 32 and 64 bit. Comes with Visual Studio, but can be use standalone using 3rd party MASM32 SDK.
 - TASM : Turbo Assembler
-- NASM : Netwide Assembler
+- NASM : Netwide Assembler, known mostly for Linux
 - GNU Assembler
 - GoASM : Go Based 64 bit
 
