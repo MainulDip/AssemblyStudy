@@ -50,10 +50,12 @@ mov eax, 7
 
 ### Project Basic Structure:
 1. Setup processor and memory model (by including specific files)
-    - like for x86 windows, "include \masm32\include\masm32rt.inc" will include/attach the file which will setup processor and memory model for a console application.
-2. Define data in a ".data" segment
-3. Define code in the .code segment
-4. Define start of the program with entry point (label), ie, "start:"
+    - like for x86 windows, "include \masm32\include\masm32rt.inc" will include/attach the file which will setup processor and memory model for a console application and include other windows specific libraries to do windows API call, ect.
+2. Define Named Constant after ".Const", ie : answer EQU 43 || can also use "=" instated of EQU
+2. The variables we don't need to initialize (or initialize later) will go after ".Data?" segment.
+2. Define data after a ".Data" segment
+3. Define code after the .Code segment
+4. Define start of the program with entry point (label), ie, "start:". after this, write code to execute
 5. End the program with name of the entry point label, ie, "end start"
 
 ```asm
@@ -66,3 +68,42 @@ start:
     invoke ExitProcess, 0
 end start
 ```
+
+```asm
+.Const
+answer
+```
+
+### Project Skeleton Structure of EasyCode IDE for windows console app:
+```asm
+.Const
+; Define Name Constant Here
+; like : number EQU 12
+; or : number = 12
+
+.Data?
+; Define variable/s that don't need to be initialized, those maybe initialized later
+
+.Data
+; Define variable here
+
+hInst		HINSTANCE	NULL	; initialize hInst variable with type and default value
+
+
+.Code
+
+start:
+	Invoke GetModuleHandle, NULL	; API call to the windows OS to obtain instance handle
+									; The handle is a DWORD value that contains the actual 
+									; start address in memory of the EXE or DLL file
+	
+	Mov hInst, Eax		; insert value of hInst into Eax general perpose registers
+	;=====================
+	; Write your code here
+	;=====================
+	Invoke ExitProcess, 0 	; prefferred method of closing the program, 
+							; it ensures any attatched dlls are properly closed down
+							; 0 indicates, the program is exiting with no errors
+
+End start		; will finaly close the program by the label name
+``` 

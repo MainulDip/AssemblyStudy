@@ -79,6 +79,32 @@ NB: 1 will carry the 2^n value and 0 will skip, then all the carried values are 
  * Convert -8 to Signed Binary : 
  as we have to allocate the MSB for Signing information, 4 bits is not enough, so lets do it using 8bit. First present the unsigned representation of 8 using 7bit, keeping left most bit intact. Then reverser the 7 unsigned bits and add 1 to do the final conversion. The left most bit should remain intact as Signed information.
  => -8 = 1 000 1000 => 1 111 0111 + 1 = 1 111 1000
+
+ * convert -8 to binary and hex
+  => -8 = 1 000 1000 => 1 111 0111 + 1 = 1 111 1000 = 0xF8 || as highest value of 4bit is 15 or F
+
+  ### Decimal to Hex Conversion:
+  Step 1: First, divide 960 by 16.
+960 ÷ 16 = 60 and remainder = 0
+
+Step 2: Again, divide quotient 60 by 16.
+60 ÷ 16 = 3 and remainder 12.
+
+Step 3: Again dividing 3 by 16, will leave quotient=0 and remainder = 3.
+
+Step 4: Now taking the remainder in reverse order and substituting the equivalent hexadecimal value for them, we get,
+3→3, 12→C and 0→0
+
+Therefore, (960)10 = (3C0)16
+
+Hence: 15 = 0xF, 16 = 0x10
+
+### Hex to Decimal Conversion:
+* HexNumber 0x-D = (dn × 16^dn-1) + .... + (d3 × 16^2) + (d2 × 16^1) + (d1 × 16^0)
+
+  - 0x25 =  2 * 16^1 + 5 * 16^0 = 2 * 16 + 5 * 1 = 32 + 5 = 37 
+  
+  - 0x7CF = 7 * 16^2 + 12 * 16^1 + 15 * 16^0 = (7 × 256) + (12 × 16) + (15 × 1) = 1792 + 192 + 15 = 1999
 ### Characters:
 * ASCII : 8bits, for letter/numbers MSB = 0
 * UTF-8
@@ -98,6 +124,7 @@ This are primary means of moving data to another program.
 - double word = 4 bytes (32bit)
 - quadword = 8 bytes (64bit )
 
+Note: For windows "word" size is same as processor size (32bit or 64bit)
 ### CPU Workflow and Components:
  - fetch : fetch data from disc, registry, primary memory (ram)
  - decode : decode the binary commands/instructions (moving/jumping/calling, etc)
@@ -114,16 +141,20 @@ This are primary means of moving data to another program.
 * 80486 : faster
 * MMX : new instruction for multimedia
 
+Note: For windows "word" size is same as processor size (32bit or 64bit)
+
 ### CPU Registers:
-the processor includes some internal memory storage locations, called registers.
+the processor includes some internal memory storage locations, called registers. Each Thread has all of registers in single quantity.
 It's a very high-speed piece of memory inside CPU's, way faster than RAM. Measures in clock speed
 - 2.6 GHz Clock Speed = 2.6 billion ops (operations) per second.
+- x64 has total of 16 registers which can be accessed by Mnemonics.
 
 * registers are grouped into three categories
- 1. #### General Registers:
+ 1. #### General Registers and Mnemonic:
   sub-division of this are : 
-    ###### Data Registers: 
-    EAX,  EBX, ECX, EDX. Lower halves of the 32-bit registers can be used as four 16-bit data registers: AX, BX, CX and DX. Also Lower and higher halves of the above-mentioned four 16-bit registers (AX, BX, CX, DX) can be used as eight 8-bit data registers: AH, AL, BH, BL, CH, CL, DH, and DL.
+    ###### Data Registers:
+    x64 : RAX, RBX, RCX, RDX
+    x32 : EAX,  EBX, ECX, EDX. Lower halves of the 32-bit registers can be used as four 16-bit data registers: AX, BX, CX and DX. Also Lower and higher halves of the above-mentioned four 16-bit registers (AX, BX, CX, DX) can be used as eight 8-bit data registers: AH, AL, BH, BL, CH, CL, DH, and DL.
 
         - Primary Accumulator (EAX) : used in input/output and most arithmetic instructions. It is 32bit, where lower half is AX(16bit), AX can be broken down by AH(8bit) and AL(8bit). A high and A low.
         - Base register (EBX): could be used in indexed addressing. its lower half BX (16bit) = BH + BL 
@@ -131,9 +162,9 @@ It's a very high-speed piece of memory inside CPU's, way faster than RAM. Measur
         - Data register (EDX): used in input/output operations. It is also used with AX register along with DX for multiply and divide operations involving large values. its lower half DX (16bit) = DH + DL 
     
     ###### Pointer Registers: 3 types:
-      - IP : instruction Pointer, stores the offset address of the next instruction to be executed. IP in association with the CS register (as CS:IP) gives the complete address of the current instruction in the code segment.
-      - SP : Stack Pointer, provides the offset value within the program stack. SP in association with the SS register (SS:SP) refers to be current position of data or address within the program stack.
-      - BP : Base Pointer, helps in referencing the parameter variables passed to a subroutine. The address in SS register is combined with the offset in BP to get the location of the parameter. BP can also be combined with DI and SI as base register for special addressing.
+      - RIP/EIP/IP : instruction Pointer, stores the offset address of the next instruction to be executed. IP in association with the CS register (as CS:IP) gives the complete address of the current instruction in the code segment.
+      - RSP/ESP/SP : Stack Pointer, provides the offset value within the program stack. SP in association with the SS register (SS:SP) refers to be current position of data or address within the program stack.
+      - RBP/EBP/BP : Base Pointer, helps in referencing the parameter variables passed to a subroutine. The address in SS register is combined with the offset in BP to get the location of the parameter. BP can also be combined with DI and SI as base register for special addressing.
 
     ###### Index Registers: 
     are used for indexed addressing and sometimes used in addition and subtraction. There are two sets of index pointers
@@ -252,7 +283,7 @@ ex: add eax, ebx || add eax, 7
 * Logical
 * Control flow
 
-### Advanced Instruction Group:
+### Advanced Instruction Group 64bit:
 * Advanced Encryption Standard (AES)
-* 128-bit packed decimal instructions
-* 256-bit or more vector instructions
+* 128-bit packed decimal instructions (XMM)
+* 256-bit or more vector instructions (YMM)
