@@ -119,7 +119,7 @@ This are primary means of moving data to another program.
 * Basic unit of memory is Byte (8bit - minimum amount of data to move)
 * ASCII is 1 byte
 * Unicode is 1 or 2, 4 bytes
-### Assembly Units:
+### Assembly Units :
 - word = 2 bytes
 - double word = 4 bytes (32bit)
 - quadword = 8 bytes (64bit )

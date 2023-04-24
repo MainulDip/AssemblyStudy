@@ -140,3 +140,33 @@ start:
 	Invoke ExitProcess, 0
 End start
 ```
+
+### Assembly Data Types (GoAsm64):
+there is db, dw, dd, dq. Those define 8, 16, 32, 64 bits.
+```asm
+; declaring a variable of 1 byte using db 
+slot1 db 5
+
+; declaring 3 byte array each with value = 1 on a single line
+settings db 3 DUP 1
+
+; setting hex value requires h suffix, 0 prefix is optional
+plug1 db 02Fh
+plug2 db 16h
+
+; question mark after the variable declaration will stop it from being
+; initialized at this state in GoAsm
+rotten db ? 
+
+; GoAsm doesn't have string data type, but it recognize string as sequence 
+; of byte
+
+welcome db 'Enigma style file encryptor', 0Dh, 0Ah 
+
+; after array of bytes, 0Dh and 0Ah are carriage return and line feed
+; it declares an array of bytes with the length of charecters (27). We can 
+; also combine data declaration on the same line (see 0Dh, 0Ah)
+
+; Declaring Quad Word (64bit) with dq
+rotor1 dq 01F46C8037B9AD25Eh
+```
