@@ -139,7 +139,7 @@ Note: For windows "word" size is same as processor size (32bit or 64bit)
 * 8086 : 16bit registers, AX, BX, CX, DX, SI, DI, BP, SP, CS, DS, SS, ES, IP
 * 80386 (x386): extends to 32bit mode. Extends the registers: EAX, EBX, ...
 * 80486 : faster
-* MMX : new instruction for multimedia
+* pentium : intel introduced x64 processors
 
 Note: For windows "word" size is same as processor size (32bit or 64bit)
 
